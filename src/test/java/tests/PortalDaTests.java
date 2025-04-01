@@ -53,7 +53,7 @@ public class PortalDaTests extends TestBase {
   @Story("Позитивный тест")
   @Owner("@perepelovaas")
   @Severity(SeverityLevel.CRITICAL)
-  @DisplayName("Проверка поиска {} по строке ввода")
+  @DisplayName("Проверка поиска по строке ввода")
   void searchByInputString() {
     mainPage.openMainPage();
     mainPage.checkMainHeader();
