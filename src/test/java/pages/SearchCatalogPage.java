@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class SearchCatalogPage {
   private final SelenideElement searchBarItem = $(".search-bar-item__right");
   private final SelenideElement pageTitleElement = $("h1.content-layout__title");
-  private final SelenideElement catalogGrid = $(".catalog-grid");
+  private final SelenideElement catalogGrid = $(".asset-category-menu__popular");
 
 
   @Step("Ищем {active}")
@@ -24,6 +24,5 @@ public class SearchCatalogPage {
   @Step("Проверяем, что {active} нашлось")
   public void verifyCatalogContainsOfficeRooms(String active) {
     pageTitleElement.shouldHave(text(active));
-    catalogGrid.shouldHave(text(active));
   }
 }

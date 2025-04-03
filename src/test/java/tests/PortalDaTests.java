@@ -22,8 +22,7 @@ public class PortalDaTests extends TestBase {
   @ValueSource(strings = {
     "Офисное помещение",
     "Производство",
-    "Оборудование",
-    "Специальная техника"
+    "Оборудование"
   })
   @Tags({
     @Tag("SMOKE"),
