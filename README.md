@@ -83,7 +83,7 @@ gradle clean test
 
 ____
 <a id="allureReport"></a>
-## <img width="30" style="vertical-align:middle" title="Allure Report" src="media/logo/allure.svg"> </a> Пример <a target="_blank" href="https://jenkins.autotests.cloud/job/alice-lilo-032-diplom_ui/8/allure/"> Allure-отчета </a>
+## <img width="30" style="vertical-align:middle" title="Allure Report" src="media/logo/allure.svg"> </a> Пример <a target="_blank" href="https://jenkins.autotests.cloud/job/alice-lilo-032-diplom_ui/53/allure/"> Allure-отчета </a>
 <p align="center">
 <img title="Allure Overview" src="media/screenshots/allure.png">
 </p>
