@@ -34,7 +34,7 @@ public class ControlPage {
     value.shouldBe(interactable).click();
   }
 
-  @Step("Проверка, что отобразилось {int itemCount} элемента на странице")
+  @Step("Проверка, что отобразилось {itemCount} элемента на странице")
   public void checkControl(int itemCount) {
     collectionOfItem.shouldHave(sizeGreaterThan(itemCount - 1));
     controlCount.shouldHave(text("Показано " + itemCount));
