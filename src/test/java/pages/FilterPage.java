@@ -5,10 +5,13 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 
+import java.time.Duration;
+
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class FilterPage {
   private final SelenideElement
@@ -21,6 +24,8 @@ public class FilterPage {
     priceDropdownCard = $(".search-bar-dropdown-dialog"),
     minPriceInputField = $(".search-bar-dropdown-dialog input"),
     saleTypeDropdown = $("[test_id='filter_sale_type']"),
+    pricePopup = $(".search-bar-dropdown-dialog"),
+    readyButtonPrice = pricePopup.$(byText("Готово")),
     directPurchaseOption = $("#filter-sale_type-direct_purchase"),
     tradeOption = $("#filter-sale_type-trade"),
     biddingOption = $("#filter-sale_type-bidding"),
@@ -36,9 +41,11 @@ public class FilterPage {
     pledgeStatusFilter = $("[test_id='filter_pledge_status']"),
     bankruptcyFilter = $("[test_id='filter_bankruptcy']"),
     executionProcedureFilter = $("[test_id='filter_execution_procedure']"),
-    primaryDialogButton = $(".base-dialog-card__btn-primary");
-
-  private final ElementsCollection minimumPriceInputs = $$("[test_id='filter_price'] input");
+    primaryDialogButton = $(".base-dialog-card__btn-primary"),
+    resultActiveFilter = $("span.content-layout__title--sup"),
+    catalogBadgeFilter = $(".catalog-badge-filters.mt-4");
+  private final ElementsCollection catalogItems = $$("div.catalog-grid div.catalog-grid__item"),
+    minimumPriceInputs = $$("[test_id='filter_price'] input");
 
   @Step("Открытие окна фильтров")
   public void openFilter() {
@@ -64,7 +71,9 @@ public class FilterPage {
       minimumPriceInputs.get(1).sendKeys(Keys.BACK_SPACE);
     }
     minimumPriceInputs.get(1).setValue("55555");
-    readyButton.click();
+    sleep(700);
+    readyButtonPrice.click();
+    sleep(700);
   }
 
   @Step("Выбор метода продаж")
@@ -78,7 +87,7 @@ public class FilterPage {
   }
 
   @Step("Выбор продавца")
-  public void verifySellerSelection() {
+  public void selectSellerSelection() {
     sellerFilter.shouldBe(interactable);
     sellerFilter.click();
     sellerSearchBar.shouldBe(interactable);
@@ -92,23 +101,64 @@ public class FilterPage {
     readyButton.click();
   }
 
-  @Step("Проверка статуса залога")
-  public void verifyPledgeStatus() {
-    pledgeStatusFilter.shouldHave(text("Да")).click();
+  @Step("Выбор статуса залога: Да")
+  public void selectPledgeStatus() {
+    pledgeStatusFilter.shouldBe(interactable)
+      .$(byText("Да"))
+      .shouldBe(visible)
+      .click();
   }
 
-  @Step("Проверка наличия банкротства")
-  public void verifyBankruptcy() {
-    bankruptcyFilter.shouldHave(text("Да")).click();
+  @Step("Выбор наличия банкротства: Да")
+  public void selectBankruptcy() {
+    bankruptcyFilter.shouldBe(interactable)
+      .$(byText("Да"))
+      .shouldBe(visible)
+      .click();
   }
 
-  @Step("Проверка процедуры исполнения")
-  public void verifyExecutionProcedure() {
-    executionProcedureFilter.shouldHave(text("Да")).click();
+  @Step("Выбор процедуры исполнения: Да")
+  public void selectExecutionProcedure() {
+    executionProcedureFilter.shouldBe(interactable)
+      .$(byText("Да"))
+      .shouldBe(visible)
+      .click();
   }
 
   @Step("Нажать кнопку показать")
   public void clickShowButton() {
     primaryDialogButton.click();
+  }
+
+  @Step("Проверка количества элементов в каталоге (должно быть больше {expectedCount})")
+  public FilterPage verifyCatalogItemsCount(int expectedCount) {
+    resultActiveFilter.shouldBe(visible);
+    catalogItems.shouldHave(sizeGreaterThan(expectedCount));
+    catalogItems.first().shouldBe(visible);
+    return this;
+  }
+
+  @Step("Проверка что каталог не пустой")
+  public FilterPage verifyCatalogNotEmpty() {
+    return verifyCatalogItemsCount(0);
+  }
+
+  @Step("Проверка отображения активных фильтров")
+  public FilterPage verifyActiveFiltersDisplayed(int min, int max) {
+    catalogBadgeFilter.shouldBe(visible, Duration.ofSeconds(10));
+
+    String filtersText = catalogBadgeFilter.getText();
+    assertThat(filtersText.toLowerCase()).contains("прямая покупка, аукцион, +1");
+    assertThat(filtersText)
+      .contains("Регион: Москва")
+      .containsPattern("\\d+ — \\d+ млн. ₽")
+      .contains("Тип продавца:");
+
+    assertThat(filtersText)
+      .contains("В залоге: Да")
+      .contains("Банкротство: Первые торги, Повторные торги, +2")
+      .contains("Исполнительное производство: Первичные торги, Вторичные торги, +1");
+
+    return this;
   }
 }
