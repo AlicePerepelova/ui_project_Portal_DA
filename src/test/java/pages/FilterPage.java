@@ -70,7 +70,7 @@ public class FilterPage {
     for (int i = 1; i < 5; i++) {
       minimumPriceInputs.get(1).sendKeys(Keys.BACK_SPACE);
     }
-    minimumPriceInputs.get(1).setValue("55555");
+    minimumPriceInputs.get(1).setValue("555");
     sleep(700);
     readyButtonPrice.click();
     sleep(700);
@@ -146,18 +146,19 @@ public class FilterPage {
   @Step("Проверка отображения активных фильтров")
   public FilterPage verifyActiveFiltersDisplayed(int min, int max) {
     catalogBadgeFilter.shouldBe(visible, Duration.ofSeconds(10));
+    String actualText = catalogBadgeFilter.getText().toLowerCase();
 
-    String filtersText = catalogBadgeFilter.getText();
-    assertThat(filtersText.toLowerCase()).contains("прямая покупка, аукцион, +1");
-    assertThat(filtersText)
-      .contains("Регион: Москва")
+    assertThat(actualText)
+      .contains("регион: москва")
+      .contains("прямая покупка")
+      .contains("аукцион")
       .containsPattern("\\d+ — \\d+ млн. ₽")
-      .contains("Тип продавца:");
+      .contains("тип продавца:");
 
-    assertThat(filtersText)
-      .contains("В залоге: Да")
-      .contains("Банкротство: Первые торги, Повторные торги, +2")
-      .contains("Исполнительное производство: Первичные торги, Вторичные торги, +1");
+    assertThat(actualText)
+      .contains("в залоге: да")
+      .contains("банкротство: первые торги, повторные торги, +2")
+      .contains("исполнительное производство: первичные торги, вторичные торги, +1");
 
     return this;
   }

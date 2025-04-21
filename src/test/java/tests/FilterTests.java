@@ -37,6 +37,6 @@ public class FilterTests extends TestBase {
     filter.clickShowButton();
     filter.verifyCatalogItemsCount(1);
     filter.verifyCatalogNotEmpty();
-    filter.verifyActiveFiltersDisplayed(11,55555);
+    filter.verifyActiveFiltersDisplayed(11,11555);
   }
 }
