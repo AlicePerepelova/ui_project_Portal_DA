@@ -19,19 +19,6 @@ tasks.withType(JavaCompile) {
   options.compilerArgs << "-parameters"
 }
 
-tasks.withType(Test) {
-  systemProperty "file.encoding", "UTF-8"
-  systemProperty "selenide.headless", "false"
-  systemProperty "BUILD_URL", System.getenv("BUILD_URL") ?: ""
-
-
-  systemProperty "console.encoding", "UTF-8"
-  systemProperty "stdout.encoding", "UTF-8"
-  systemProperty "stderr.encoding", "UTF-8"
-
-  systemProperty "selenide.browser", "chrome"
-  systemProperty "selenide.pageLoadStrategy", "eager"
-}
 
 allure {
   report {

@@ -1,9 +1,6 @@
 package tests;
 
-import io.qameta.allure.Feature;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -14,7 +11,9 @@ import pages.CookiePopUp;
 import pages.MainPage;
 import pages.SearchCatalogPage;
 import pages.SearchInputPage;
-
+@Tag("POSITIVE")
+@Story("Позитивный тест")
+@Owner("@perepelovaas")
 public class SearchTests extends TestBase {
   CookiePopUp cookie = new CookiePopUp();
   SearchCatalogPage search = new SearchCatalogPage();
