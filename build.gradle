@@ -54,17 +54,18 @@ dependencies {
   testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 }
 
+
 test {
   useJUnitPlatform()
   systemProperties(System.getProperties())
-
-  testLogging {
-    events "passed", "skipped", "failed", "standardOut", "standardError"
-    showExceptions true
-    showCauses true
-    showStackTraces true
-    exceptionFormat "full"
-  }
+}
+testLogging {
+  events "passed", "skipped", "failed", "standardOut", "standardError"
+  showExceptions true
+  showCauses true
+  showStackTraces true
+  exceptionFormat "full"
+}
 }
 
 tasks.register('web_test', Test) {
@@ -79,14 +80,11 @@ tasks.register('smoke_test', Test) {
   }
 }
 
-tasks.register('regression_test', Test) {
-  useJUnitPlatform {
-    includeTags("REGRESSION")
-  }
-}
-
 tasks.register('positive_test', Test) {
   useJUnitPlatform {
     includeTags("POSITIVE")
+  }
+  tasks.withType(Test) {
+    systemProperties(System.getProperties())
   }
 }
