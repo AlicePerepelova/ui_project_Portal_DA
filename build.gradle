@@ -8,11 +8,12 @@ repositories {
   mavenCentral()
 }
 
-def selenideVersion = "6.16.0"
-def seleniumVersion = "4.15.0"
-def restAssuredVersion = "5.3.1"
-def allureVersion = "2.23.0"
-def junitVersion = "5.9.3"
+def selenideVersion = "7.2.1"
+def seleniumVersion = "4.18.1"
+def restAssuredVersion = "5.4.0"
+def allureVersion = "2.27.0"
+def junitVersion = "5.10.2"
+def webDriverManagerVersion = "5.8.0"
 
 allure {
   report {
@@ -34,45 +35,53 @@ dependencies {
       "io.rest-assured:json-schema-validator:$restAssuredVersion",
       "io.qameta.allure:allure-rest-assured:$allureVersion",
       "org.junit.jupiter:junit-jupiter:$junitVersion",
-      'org.slf4j:slf4j-simple:2.0.7',
-      'org.assertj:assertj-core:3.24.2',
+      'org.slf4j:slf4j-simple:2.0.12',
+      'org.assertj:assertj-core:3.25.3',
       'org.aeonbits.owner:owner:1.0.4',
       "com.codeborne:selenide:$selenideVersion",
-      "org.seleniumhq.selenium:selenium-java:$seleniumVersion",
-      "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
+//      "org.seleniumhq.selenium:selenium-java:$seleniumVersion",
+//      "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion",
+//      "org.seleniumhq.selenium:selenium-devtools-v119:$seleniumVersion", // Для Chrome 119+
+      "io.github.bonigarcia:webdrivermanager:$webDriverManagerVersion"
   )
-
-  compileOnly 'org.projectlombok:lombok:1.18.30'
-  annotationProcessor 'org.projectlombok:lombok:1.18.30'
-  testCompileOnly 'org.projectlombok:lombok:1.18.30'
-  testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+//
+//  compileOnly 'org.projectlombok:lombok:1.18.30'
+//  annotationProcessor 'org.projectlombok:lombok:1.18.30'
+//  testCompileOnly 'org.projectlombok:lombok:1.18.30'
+//  testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 }
+
 tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'
 }
-tasks.register('web_test', Test) {
+tasks.withType(Test) {
+  systemProperties(System.getProperties())
+  useJUnitPlatform()
+
+  testLogging {
+    lifecycle {
+      events "started", "skipped", "failed", "standard_error", "standard_out"
+      exceptionFormat "short"
+    }
+  }
+}
+task web_test(type: Test) {
   useJUnitPlatform {
+    includeEngines 'junit-jupiter'
     includeTags("WEB")
   }
-}
 
-tasks.register('smoke_test', Test) {
-  useJUnitPlatform {
-    includeTags("SMOKE")
-  }
-}
+  task smoke_test(type: Test) {
+    useJUnitPlatform {
+      includeEngines 'junit-jupiter'
+      includeTags("SMOKE")
+    }
 
-tasks.register('positive_test', Test) {
-  useJUnitPlatform {
-    includeTags("POSITIVE")
-  }
-  tasks.withType(Test) {
-    systemProperties(System.getProperties())
-    useJUnitPlatform()
-    testLogging {
-      lifecycle {
-        events "started", "skipped", "failed", "standard_error", "standard_out"
-        exceptionFormat "short"
+
+    task positive_test(type: Test) {
+      useJUnitPlatform {
+        includeEngines 'junit-jupiter'
+        includeTags("POSITIVE")
       }
     }
   }
