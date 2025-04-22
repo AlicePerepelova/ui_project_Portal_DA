@@ -1,6 +1,6 @@
 plugins {
   id 'java-library'
-  id 'io.qameta.allure' version '2.12.0'
+  id 'io.qameta.allure' version '2.11.2'
   id "io.freefair.lombok" version "8.6"
 }
 
@@ -8,11 +8,11 @@ repositories {
   mavenCentral()
 }
 
-def selenideVersion = "7.2.1"
+def selenideVersion = "6.16.0"
 def seleniumVersion = "4.15.0"
 def restAssuredVersion = "5.3.1"
-def allureVersion = "2.21.0"
-def junitVersion = "5.10.0"
+def allureVersion = "2.23.0"
+def junitVersion = "5.9.3"
 
 allure {
   report {
@@ -36,7 +36,7 @@ dependencies {
       "org.junit.jupiter:junit-jupiter:$junitVersion",
       'org.slf4j:slf4j-simple:2.0.7',
       'org.assertj:assertj-core:3.24.2',
-      'org.aeonbits.owner:owner:1.0.12',
+      'org.aeonbits.owner:owner:1.0.4',
       "com.codeborne:selenide:$selenideVersion",
       "org.seleniumhq.selenium:selenium-java:$seleniumVersion",
       "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
