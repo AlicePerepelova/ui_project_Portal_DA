@@ -47,7 +47,9 @@ dependencies {
   testCompileOnly 'org.projectlombok:lombok:1.18.30'
   testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 }
-
+tasks.withType(JavaCompile) {
+  options.encoding = 'UTF-8'
+}
 tasks.register('web_test', Test) {
   useJUnitPlatform {
     includeTags("WEB")
