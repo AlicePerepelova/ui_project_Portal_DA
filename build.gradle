@@ -14,12 +14,6 @@ def restAssuredVersion = "5.3.1"
 def allureVersion = "2.21.0"
 def junitVersion = "5.10.0"
 
-tasks.withType(JavaCompile) {
-  options.encoding = 'UTF-8'
-  options.compilerArgs << "-parameters"
-}
-
-
 allure {
   report {
     version.set(allureVersion)
@@ -54,20 +48,6 @@ dependencies {
   testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 }
 
-
-test {
-  useJUnitPlatform()
-  systemProperties(System.getProperties())
-}
-testLogging {
-  events "passed", "skipped", "failed", "standardOut", "standardError"
-  showExceptions true
-  showCauses true
-  showStackTraces true
-  exceptionFormat "full"
-}
-}
-
 tasks.register('web_test', Test) {
   useJUnitPlatform {
     includeTags("WEB")
@@ -86,5 +66,12 @@ tasks.register('positive_test', Test) {
   }
   tasks.withType(Test) {
     systemProperties(System.getProperties())
+    useJUnitPlatform()
+    testLogging {
+      lifecycle {
+        events "started", "skipped", "failed", "standard_error", "standard_out"
+        exceptionFormat "short"
+      }
+    }
   }
 }
