@@ -22,8 +22,9 @@ public class SearchInputPage {
     buttonSearch.click();
   }
 
-  @Step("Проверка результатов поииска по строке ввода")
+  @Step("Проверка результатов поиска по строке ввода")
   public void checkSearchResult() {
+
     catalogGrid.shouldHave(texts("Офисное помещение"));
   }
 }

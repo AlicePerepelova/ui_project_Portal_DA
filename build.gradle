@@ -1,19 +1,13 @@
 plugins {
   id 'java-library'
   id 'io.qameta.allure' version '2.11.2'
-  id "io.freefair.lombok" version "8.6"
 }
 
 repositories {
   mavenCentral()
 }
 
-def selenideVersion = "7.2.1"
-def seleniumVersion = "4.18.1"
-def restAssuredVersion = "5.4.0"
 def allureVersion = "2.27.0"
-def junitVersion = "5.10.2"
-def webDriverManagerVersion = "5.8.0"
 
 allure {
   report {
@@ -31,24 +25,15 @@ allure {
 
 dependencies {
   testImplementation(
-      "io.rest-assured:rest-assured:$restAssuredVersion",
-      "io.rest-assured:json-schema-validator:$restAssuredVersion",
-      "io.qameta.allure:allure-rest-assured:$allureVersion",
-      "org.junit.jupiter:junit-jupiter:$junitVersion",
+      "io.rest-assured:rest-assured:5.4.0",
+      "io.rest-assured:json-schema-validator:5.4.0",
+      "io.qameta.allure:allure-rest-assured:2.27.0",
+      "org.junit.jupiter:junit-jupiter:5.10.2",
       'org.slf4j:slf4j-simple:2.0.12',
       'org.assertj:assertj-core:3.25.3',
       'org.aeonbits.owner:owner:1.0.4',
-      "com.codeborne:selenide:$selenideVersion",
-//      "org.seleniumhq.selenium:selenium-java:$seleniumVersion",
-//      "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion",
-//      "org.seleniumhq.selenium:selenium-devtools-v119:$seleniumVersion", // Для Chrome 119+
-      "io.github.bonigarcia:webdrivermanager:$webDriverManagerVersion"
+      "com.codeborne:selenide:7.2.1",
   )
-//
-//  compileOnly 'org.projectlombok:lombok:1.18.30'
-//  annotationProcessor 'org.projectlombok:lombok:1.18.30'
-//  testCompileOnly 'org.projectlombok:lombok:1.18.30'
-//  testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 }
 
 tasks.withType(JavaCompile) {
