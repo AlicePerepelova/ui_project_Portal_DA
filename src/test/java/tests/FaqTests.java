@@ -24,7 +24,6 @@ public class FaqTests extends TestBase {
   @DisplayName("Проверка меню Помощь")
   void checkFaqTitleTest() {
     mainPage.openMainPage();
-    mainPage.checkMainHeader();
     cookie.checkCookiePopupDisplay();
     cookie.acceptCookie();
     mainPage.clickOnFaq();

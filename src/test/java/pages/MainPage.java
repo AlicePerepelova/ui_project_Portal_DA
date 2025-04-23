@@ -17,11 +17,8 @@ public class MainPage {
   }
 
   @Step("Проверка 'Шапки' главной страницы")
-  public void checkMainHeader() {
-    headerMenu.shouldHave(texts("Купить\n" +
-      "Снять\n" +
-      "Сервисы\n" +
-      "Тарифы"));
+  public void checkMainHeader(String headerST) {
+    headerMenu.shouldHave(texts(headerST));
   }
 
   @Step("Переход на страницу 'FAQ'")

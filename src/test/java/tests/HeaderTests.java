@@ -22,17 +22,21 @@ public class HeaderTests extends TestBase {
   @Severity(SeverityLevel.BLOCKER)
   @DisplayName("Проверка переходов по хэдерам")
   void checkHeaderTest() {
+   String headerST = "Купить\n" +
+      "Снять\n" +
+      "Сервисы\n" +
+      "Тарифы";
     mainPage.openMainPage();
-    mainPage.checkMainHeader();
+    mainPage.checkMainHeader(headerST);
     cookie.checkCookiePopupDisplay();
     cookie.acceptCookie();
     header.clickHeaderBuy();
-    header.checkHeaderBuy();
+    header.checkHeaderText("Покупка");
     header.clickHeaderRent();
-    header.checkHeaderRent();
+    header.checkHeaderText("Аренда");
     header.clickHeaderServices();
-    header.checkHeaderServices();
+    header.checkHeaderText("Сервисы");
     header.clickHeaderTariffs();
-    header.checkHeaderTariffs();
+    header.checkHeaderTariffs("Тарифы");
   }
 }

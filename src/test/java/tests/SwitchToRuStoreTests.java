@@ -24,12 +24,12 @@ public class SwitchToRuStoreTests extends TestBase {
   @Severity(SeverityLevel.TRIVIAL)
   @DisplayName("Проверка кнопки 'Скачать приложение в RuStore")
   void checkBtnRuStore() {
+    String url="https://www.rustore.ru/catalog/app/ru.activebc.portal.da";
     Configuration.pollingInterval = 500;
     mainPage.openMainPage();
-    mainPage.checkMainHeader();
     cookie.checkCookiePopupDisplay();
     cookie.acceptCookie();
     ruStorePage.clickRuStoreBtn();
-    ruStorePage.checkRuStoreOpened();
+    ruStorePage.checkRuStoreOpened(url);
   }
 }

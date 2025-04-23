@@ -17,6 +17,7 @@ public class ControlTests extends TestBase {
   private MainPage mainPage = new MainPage();
   private CookiePopUp cookie = new CookiePopUp();
   private ControlPage control = new ControlPage();
+
   @Tag("POSITIVE")
   @Story("Позитивный тест")
   @Owner("@perepelovaas")
@@ -27,10 +28,8 @@ public class ControlTests extends TestBase {
     18, 27, 54
   })
   void checkControlTest(int itemCount) {
-
     Configuration.pollingInterval = 500;
     mainPage.openMainPage();
-    mainPage.checkMainHeader();
     cookie.checkCookiePopupDisplay();
     cookie.acceptCookie();
     control.searchItem();

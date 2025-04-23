@@ -21,19 +21,14 @@ public class HeaderPage {
     headerBuy.shouldBe(interactable).click();
   }
 
-  @Step("Проверить, что на странице отображается 'Покупка'")
-  public void checkHeaderBuy() {
-    catalogName.shouldHave(text("Покупка"));
+  @Step("Проверить, что на странице отображается '{expectedText}'")
+  public void checkHeaderText(String expectedText) {
+    catalogName.shouldHave(text(expectedText));
   }
 
-  @Step("Выбрать хэдер 'Аренда'")
+  @Step("Выбрать хэдер 'Снять'")
   public void clickHeaderRent() {
     headerRent.shouldBe(interactable).click();
-  }
-
-  @Step("Проверить, что на странице отображается 'Аренда'")
-  public void checkHeaderRent() {
-    catalogName.shouldHave(text("Аренда"));
   }
 
   @Step("Выбрать хэдер 'Сервисы'")
@@ -41,18 +36,13 @@ public class HeaderPage {
     headerServices.shouldBe(interactable).click();
   }
 
-  @Step("Проверить, что на странице отображается 'Сервисы'")
-  public void checkHeaderServices() {
-    catalogName.shouldHave(text("Сервисы"));
-  }
-
   @Step("Выбрать хэдер 'Тарифы'")
   public void clickHeaderTariffs() {
     headerTariffs.shouldBe(interactable).click();
   }
 
-  @Step("Проверить, что на странице отображается  'Тарифы'")
-  public void checkHeaderTariffs() {
-    catalogNameTariffs.shouldHave(text("Тарифы"));
+  @Step("Проверить, что на странице отображается  '{expectedText}'")
+  public void checkHeaderTariffs(String expectedText) {
+    catalogNameTariffs.shouldHave(text(expectedText));
   }
 }

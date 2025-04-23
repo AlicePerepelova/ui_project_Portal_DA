@@ -12,19 +12,18 @@ public class SearchInputPage {
   private final SelenideElement inputSearch = $(".text-input__input"),
     inputQuery = $("#query"),
     buttonSearch = $(".ml-4");
-  String value = "Офисное помещение";
   private ElementsCollection catalogGrid = $$(".catalog-grid");
 
   @Step("Поиск по строке ввода")
-  public void searchValue() {
+  public void searchValue(String searchQuery) {
     inputSearch.click();
-    inputQuery.setValue(value);
+    inputQuery.setValue(searchQuery);
     buttonSearch.click();
   }
 
   @Step("Проверка результатов поиска по строке ввода")
-  public void checkSearchResult() {
+  public void checkSearchResult(String searchQuery) {
 
-    catalogGrid.shouldHave(texts("Офисное помещение"));
+    catalogGrid.shouldHave(texts(searchQuery));
   }
 }

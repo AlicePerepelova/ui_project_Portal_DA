@@ -15,9 +15,9 @@ public class RuStorePage {
     ruStoreBtn.shouldBe(interactable).click();
   }
 
-  public void checkRuStoreOpened() {
+  public void checkRuStoreOpened(String url) {
     switchTo().window(1);
-    webdriver().shouldHave(url("https://www.rustore.ru/catalog/app/ru.activebc.portal.da"));
+    webdriver().shouldHave(url(url));
     closeWindow();
     switchTo().window(0);
   }

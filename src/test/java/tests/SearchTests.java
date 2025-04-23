@@ -36,7 +36,6 @@ public class SearchTests extends TestBase {
   @DisplayName("Проверка поиска по категории каталога")
   void searchCatalogTestTest(String active) {
     mainPage.openMainPage();
-    mainPage.checkMainHeader();
     cookie.checkCookiePopupDisplay();
     cookie.acceptCookie();
     search.clickOnSearchBarItem(active);
@@ -51,11 +50,11 @@ public class SearchTests extends TestBase {
   @Severity(SeverityLevel.CRITICAL)
   @DisplayName("Проверка поиска по строке ввода")
   void searchByInputStringTest() {
+    String active = "Офисное помещение";
     mainPage.openMainPage();
-    mainPage.checkMainHeader();
     cookie.checkCookiePopupDisplay();
     cookie.acceptCookie();
-    searchInput.searchValue();
-    searchInput.checkSearchResult();
+    searchInput.searchValue(active);
+    searchInput.checkSearchResult(active);
   }
 }

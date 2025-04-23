@@ -23,7 +23,6 @@ public class FilterTests extends TestBase {
   @DisplayName("Проверка фильтра")
   void checkFilterTest() {
     mainPage.openMainPage();
-    mainPage.checkMainHeader();
     cookie.checkCookiePopupDisplay();
     cookie.acceptCookie();
     filter.openFilter();
